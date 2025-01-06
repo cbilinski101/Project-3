@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Per Capita Energy Consumption by Source</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            margin: 20px;
+            font-size: 1.5rem;
+        }
+        .chart-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .legend-item {
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            margin-right: 5px;
+        }
+        .tooltip {
+            position: absolute;
+            background-color: white;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            pointer-events: none;
+            opacity: 0;
+            font-size: 0.9rem;
+        }
+        .tooltip.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Per Capita Primary Energy Consumption by Source (2023)</h1>
+    <div class="chart-container">
+        <svg id="chart"></svg>
+        <div class="legend" id="legend"></div>
+    </div>
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        // Chart dimensions
+        const margin = { top: 20, right: 20, bottom: 40, left: 150 };
+        const width = 900 - margin.left - margin.right;
+        const height = 500 - margin.top - margin.bottom;
+
+        // Colors for each energy source
+        const colors = {
+            "Coal": "#d53e4f",
+            "Oil": "#fc8d59",
+            "Gas": "#fee08b",
+            "Nuclear": "#91bfdb",
+            "Hydropower": "#4575b4",
+            "Wind": "#74add1",
+            "Solar": "#fdae61",
+            "Other renewables": "#d73027"
+        };
+
+        // Tooltip
+        const tooltip = d3.select("#tooltip");
+
+        // Create SVG canvas
+        const svg = d3.select("#chart")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        // Load CSV data
+        const csvFile = "D:/Promi/Per_Capita_Visualization/per-capita-energy-stacked.csv"; // Adjust path if necessary
+        d3.csv(csvFile).then(data => {
+            const keys = Object.keys(data[0]).filter(d => d !== "Country");
+            
+            // Stack data
+            const stack = d3.stack().keys(keys);
+            const stackedData = stack(data);
+
+            // Scales
+            const x = d3.scaleLinear()
+                .domain([0, d3.max(stackedData[stackedData.length - 1], d => d[1])])
+                .range([0, width]);
+
+            const y = d3.scaleBand()
+                .domain(data.map(d => d.Country))
+                .range([0, height])
+                .padding(0.1);
+
+            // Axes
+            svg.append("g")
+                .call(d3.axisLeft(y).tickSize(0).tickPadding(10))
+                .select(".domain").remove();
+
+            svg.append("g")
+                .attr("transform", `translate(0,${height})`)
+                .call(d3.axisBottom(x).ticks(10).tickFormat(d => `${d} kWh`));
+
+            // Add bars
+            svg.selectAll(".layer")
+                .data(stackedData)
+                .enter()
+                .append("g")
+                .attr("class", "layer")
+                .attr("fill", d => colors[d.key])
+                .selectAll("rect")
+                .data(d => d)
+                .enter()
+                .append("rect")
+                .attr("y", d => y(d.data.Country))
+                .attr("x", d => x(d[0]))
+                .attr("width", d => x(d[1]) - x(d[0]))
+                .attr("height", y.bandwidth())
+                .on("mouseover", (event, d) => {
+                    tooltip
+                        .style("opacity", 1)
+                        .style("left", `${event.pageX + 10}px`)
+                        .style("top", `${event.pageY - 10}px`)
+                        .html(`<strong>Country:</strong> ${d.data.Country}<br>
+                               <strong>Value:</strong> ${(d[1] - d[0]).toFixed(2)} kWh`);
+                })
+                .on("mousemove", event => {
+                    tooltip
+                        .style("left", `${event.pageX + 10}px`)
+                        .style("top", `${event.pageY - 10}px`);
+                })
+                .on("mouseout", () => {
+                    tooltip.style("opacity", 0);
+                });
+
+            // Legend
+            const legend = d3.select("#legend");
+            Object.entries(colors).forEach(([key, color]) => {
+                const legendItem = legend.append("div").attr("class", "legend-item");
+                legendItem.append("div").attr("class", "legend-color").style("background-color", color);
+                legendItem.append("span").text(key);
+            });
+        });
+    </script>
+</body>
+</html>
