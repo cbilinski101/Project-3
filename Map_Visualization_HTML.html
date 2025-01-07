@@ -66,8 +66,8 @@
         }).addTo(map);
 
         // Load GeoJSON data
-        const geojsonUrl = "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson"; // Replace with a proper source if needed
-        const csvData = "share-electricity-renewables.csv"; // Replace with actual path
+        const geojsonUrl = "https://raw.githubusercontent.com/cbilinski101/Project-3/refs/heads/main/share-electricity-renewables.metadata.json"; // Replace with a proper source if needed
+        const csvData = "https://raw.githubusercontent.com/cbilinski101/Project-3/refs/heads/main/share-electricity-renewables.csv"; // Replace with actual path
 
         // Load the GeoJSON and CSV data
         d3.json(geojsonUrl).then(function(geoData) {
