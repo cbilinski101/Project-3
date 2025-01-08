@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Renewable Energy Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+        #info {
+            padding: 10px;
+            background: white;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            border-radius: 5px;
+        }
+        .legend {
+            line-height: 18px;
+            color: #555;
+            padding: 10px;
+            background: white;
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            z-index: 1000;
+            border-radius: 5px;
+        }
+        .legend i {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <div id="info">
+        <h4>Country Details</h4>
+        <p id="details">Click on a country to view details.</p>
+    </div>
+    <div class="legend" id="legend">
+        <h4>Share of Electricity from Renewables</h4>
+        <div><i style="background: #006837"></i> > 70%</div>
+        <div><i style="background: #31a354"></i> 50% - 70%</div>
+        <div><i style="background: #78c679"></i> 30% - 50%</div>
+        <div><i style="background: #c2e699"></i> 10% - 30%</div>
+        <div><i style="background: #ffffcc"></i> < 10%</div>
+    </div>
+
+    <script>
+        // Create the map
+        const map = L.map('map').setView([0, 0], 2);
+
+        // Add a tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Load GeoJSON data
+        const geojsonUrl = "https://raw.githubusercontent.com/cbilinski101/Project-3/refs/heads/main/share-electricity-renewables.metadata.json"; // Replace with a proper source if needed
+        const csvData = "https://raw.githubusercontent.com/cbilinski101/Project-3/refs/heads/main/share-electricity-renewables.csv"; // Replace with actual path
+
+        // Load the GeoJSON and CSV data
+        d3.json(geojsonUrl).then(function(geoData) {
+            d3.csv(csvData).then(function(csv) {
+                // Map country codes to renewable energy data
+                const renewableData = {};
+                csv.forEach(row => {
+                    renewableData[row["Country Code"]] = +row["Renewables - % electricity"];
+                });
+
+                // Style function for map
+                function style(feature) {
+                    const value = renewableData[feature.properties.ISO_A3] || 0;
+                    return {
+                        fillColor: value > 70 ? '#006837' :
+                                   value > 50 ? '#31a354' :
+                                   value > 30 ? '#78c679' :
+                                   value > 10 ? '#c2e699' :
+                                                '#ffffcc',
+                        weight: 1,
+                        opacity: 1,
+                        color: 'white',
+                        fillOpacity: 0.7
+                    };
+                }
+
+                // Add interactivity
+                function onEachFeature(feature, layer) {
+                    layer.on({
+                        click: function(e) {
+                            const country = feature.properties.ADMIN;
+                            const value = renewableData[feature.properties.ISO_A3] || "No data";
+                            document.getElementById('details').innerHTML = `
+                                <strong>Country:</strong> ${country}<br>
+                                <strong>Renewable Share:</strong> ${value}%`;
+                        }
+                    });
+                }
+
+                // Add GeoJSON layer to the map
+                L.geoJson(geoData, {
+                    style: style,
+                    onEachFeature: onEachFeature
+                }).addTo(map);
+            });
+        });
+
+        // Add the legend
+        const legend = L.control({ position: 'bottomleft' });
+
+        legend.onAdd = function(map) {
+            const div = L.DomUtil.create('div', 'legend');
+            div.innerHTML += `
+                <h4>Share of Electricity from Renewables</h4>
+                <div><i style="background: #006837"></i> > 70%</div>
+                <div><i style="background: #31a354"></i> 50% - 70%</div>
+                <div><i style="background: #78c679"></i> 30% - 50%</div>
+                <div><i style="background: #c2e699"></i> 10% - 30%</div>
+                <div><i style="background: #ffffcc"></i> < 10%</div>`;
+            return div;
+        };
+
+        legend.addTo(map);
+    </script>
+</body>
+</html>
+
+
+
+D:/Promi/Map_Visualization/share-electricity-renewables.csv
