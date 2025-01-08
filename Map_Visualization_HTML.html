@@ -66,8 +66,8 @@
         }).addTo(map);
 
         // Load GeoJSON data
-        const geojsonUrl = "https://raw.githubusercontent.com/cbilinski101/Project-3/refs/heads/main/Data/1.%20Renewable%20energy%20production%20volumes%20geographically/share-electricity-renewables.metadata.json"; // Replace with a proper source if needed
-        const csvData = "https://raw.githubusercontent.com/cbilinski101/Project-3/refs/heads/main/Data/1.%20Renewable%20energy%20production%20volumes%20geographically/share-electricity-renewables.csv"; // Replace with actual path
+        const geojsonUrl = "https://raw.githubusercontent.com/cbilinski101/Project-3/refs/heads/main/share-electricity-renewables.metadata.json"; // Replace with a proper source if needed
+        const csvData = "https://raw.githubusercontent.com/cbilinski101/Project-3/refs/heads/main/share-electricity-renewables.csv"; // Replace with actual path
 
         // Load the GeoJSON and CSV data
         d3.json(geojsonUrl).then(function(geoData) {
