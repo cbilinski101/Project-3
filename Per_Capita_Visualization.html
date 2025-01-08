@@ -91,7 +91,7 @@
             .attr("transform", `translate(${margin.left},${margin.top})`);
 
         // Load CSV data
-        const csvFile = "https://raw.githubusercontent.com/cbilinski101/Project-3/refs/heads/main/Data/3.%20Compare%20the%20share%20of%20energy%20types/per-capita-energy-stacked.csv"; // Adjust path if necessary
+        const csvFile = "https://raw.githubusercontent.com/cbilinski101/Project-3/refs/heads/main/per-capita-energy-stacked.csv"; // Adjust path if necessary
         d3.csv(csvFile).then(data => {
             const keys = Object.keys(data[0]).filter(d => d !== "Country");
             
