@@ -2,7 +2,7 @@ import pandas as pd
 import plotly.express as px
 
 # Load the dataset
-file_path_global = "D:/Promi/Time_Series_Line_Visualization/global-energy-substitution.csv"
+file_path_global = "D:/Promi/Time_Series_Line_Visualization/global-energy-substitution.csv" # Update with the local file path
 global_data = pd.read_csv(file_path_global)
 
 # Melt the dataframe for easier visualization

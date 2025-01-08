@@ -2,7 +2,7 @@ import pandas as pd
 import plotly.express as px
 
 # Load the dataset
-file_path_renewables = "D:/Promi/Map_Visualization/share-electricity-renewables.csv"
+file_path_renewables = "D:/Promi/Map_Visualization/share-electricity-renewables.csv" # Update with the local file path
 renewables_data = pd.read_csv(file_path_renewables)
 
 # Filter the data for the year 2023

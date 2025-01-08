@@ -2,7 +2,7 @@ import pandas as pd
 import plotly.express as px
 
 # Load the dataset
-file_path = "D:/Promi/Per_Capita_Visualization/per-capita-energy-stacked.csv"
+file_path = "D:/Promi/Per_Capita_Visualization/per-capita-energy-stacked.csv" # Update with the local file path
 data = pd.read_csv(file_path)
 
 # Filter the dataset for the year 2023 and relevant countries
