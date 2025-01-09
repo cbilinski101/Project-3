@@ -1,197 +1,363 @@
+
 # Energy Data Visualization Project
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue) ![License](https://img.shields.io/badge/License-MIT-green) ![GitHub Pages](https://img.shields.io/badge/Deployed-GitHub%20Pages-brightgreen)
-
 
 This repository contains three interactive data visualization projects related to global energy consumption trends. Each visualization provides insights into different aspects of energy usage globally.
 
 ---
 
-## **1. Global Primary Energy Consumption by Source**
-
-This section provides analysis of the trends in primary energy consumption. Over time, there has been notable growth in renewable energy, with significant increases in solar and wind energy since the early 2000s. Conversely, fossil fuel consumption experienced periods of rapid growth during industrialization and economic booms, followed by stagnation or slight declines in some regions due to policy changes and shifts toward cleaner energy sources.
-
-
-
-### Overview
-This project visualizes global primary energy consumption from 1800 to 2023 using an interactive area chart. The data is sourced from the **Energy Institute** and **Smil (2017)** and follows the "substitution method" for energy conversion.
-
-The visualization presents trends in primary energy sources such as renewables, nuclear, fossil fuels, and biomass.
-
-### Directory Structure
-```
-📁 global-energy-substitution
-├── global-energy-substitution.csv          # Historical energy consumption data
-├── global-energy-substituition.py           # Python script for creating the area chart
-├── global-energy-substituition.html         # Exported interactive HTML area chart
-├── global-energy-substitution.metadata.json # Metadata file with details about the dataset
-└── global-energy-substitution.png           # Static PNG of the visualization
-```
-
-### Chart Description
-- **Title:** Global Primary Energy Consumption by Source (1800–2023)
-- **Energy Sources:** Includes coal, oil, gas, renewables, nuclear, and traditional biomass.
-- **Visualization Type:** Stacked area chart illustrating the growth of each energy source over time.
-
-![global-energy-substitution/global-energy-substitution.png](https://github.com/cbilinski101/Project-3/blob/main/global-energy-substitution/global-energy-substitution.png?raw=true)
-
-### How to Run
-1. Install the necessary libraries:
-   ```bash
-   pip install pandas plotly
-   ```
-2. Update the script with the local file path for the CSV:
-   ```python
-   file_path_global = "./global-energy-substitution.csv"
-   ```
-3. Run the Python script:
-   ```bash
-   python global-energy-substituition.py
-   ```
-4. Open `global-energy-substituition.html` in your browser to view the interactive chart.
+## Table of Contents
+- [Project Description](#project-description)
+  - [Purpose](#purpose)
+  - [Goals](#goals)
+  - [Key Features](#key-features)
+- [Technologies Used](#technologies-used)
+- [Installation Instructions](#installation-instructions)
+- [Directory Structure](#directory-structure)
+- [System Architecture](#system-architecture)
+- [Usage](#usage)
+  - [Running the Ingestion Script](#running-the-ingestion-script)
+  - [Running the Flask API](#running-the-flask-api)
+  - [Viewing the Frontend Pages](#viewing-the-frontend-pages)
+- [API Interaction](#api-interaction)
+  - [API Request/Response Sequence Diagram](#api-requestresponse-sequence-diagram)
+- [Frontend Navigation](#frontend-navigation)
+  - [Frontend Navigation/Interaction Diagram](#frontend-navigationinteraction-diagram)
+- [Database Structure](#database-structure)
+- [Configuration](#configuration)
+- [Additional Information](#additional-information)
+  - [Acknowledgments](#acknowledgments)
+  - [Known Issues](#known-issues)
+  - [Future Enhancements](#future-enhancements)
+- [License](#license)
+- [Contact](#contact)
 
 ---
 
-## **2. Per Capita Primary Energy Consumption by Source**
+## Project Description
 
-This section analyzes the variation in per capita energy use across countries. The data highlights that countries such as the United States and industrialized European nations tend to have higher per capita energy consumption, driven by industrial demand and living standards. In contrast, developing nations often show lower per capita use, though some may exhibit rising trends due to economic growth. Additionally, the sources of energy vary by region: for example, European countries may have a larger share of nuclear and renewables, while other regions rely more heavily on fossil fuels.
+### Purpose
 
-### Overview
-This project visualizes per capita energy consumption for select countries in 2023 using a stacked bar chart. The data is sourced from the **Energy Institute - Statistical Review of World Energy (2024)** and various population datasets.
+This project demonstrates how to:
+1. Programmatically download datasets (in CSV format) from the web.
+2. Ingest and store them in a PostgreSQL database.
+3. Expose the stored data through RESTful API endpoints built with Flask.
+4. Visualize the data using an HTML frontend for easy access.
 
-The visualization compares energy consumption per person for different countries, highlighting how the consumption of coal, oil, gas, renewables, nuclear, and other sources varies.
+### Goals
 
-### Directory Structure
-```
-📁 per-capita-energy
-├── per-capita-energy-stacked.csv           # Dataset containing energy consumption per capita
-├── per-capita-energy.py                    # Python script for creating the bar chart
-├── per-capita-energy.html                   # Exported interactive HTML bar chart
-├── per-capita-energy-stacked.metadata.json  # Metadata file detailing the dataset
-└── per-capita-energy.png                    # Static PNG of the visualization
-```
+- Provide an automated and reproducible process to keep data up to date.
+- Offer clear and concise API endpoints for querying data.
+- Present an intuitive HTML front page to guide users to various visualizations.
 
-### Chart Description
-- **Title:** Per Capita Primary Energy Consumption by Source (2023)
-- **Energy Sources:** Coal, oil, gas, nuclear, hydro, wind, solar, and other renewables.
-- **Countries Covered:** United States, China, India, France, Germany, and others.
-- **Visualization Type:** Stacked bar chart showing the breakdown of energy sources for each country.
+### Key Features
 
-![per-capita-energy/per-capita-energy.png](https://github.com/cbilinski101/Project-3/blob/main/per-capita-energy/per-capita-energy.png?raw=true)
-
-### How to Run
-1. Install dependencies:
-   ```bash
-   pip install pandas plotly
-   ```
-2. Update the script with the local file path for the CSV:
-   ```python
-   file_path = "./per-capita-energy-stacked.csv"
-   ```
-3. Execute the script:
-   ```bash
-   python per-capita-energy.py
-   ```
-4. Open `per-capita-energy.html` to view the interactive bar chart.
+- Automated ingestion of three distinct CSV datasets related to global energy consumption.
+- PostgreSQL database setup and data population.
+- Flask API endpoints for retrieving data.
+- Basic HTML/CSS layout for data visualization and navigation.
 
 ---
 
-## **3. Share of Electricity Production from Renewables**
+## Technologies Used
 
-This section includes insights on regional leaders in renewable electricity production. For example, European countries like Denmark and Germany lead in wind energy adoption due to strong policy support, while nations like Iceland and Norway generate significant electricity from hydropower due to abundant natural resources. The map visualization highlights these trends and shows how renewable shares vary globally, often influenced by policies, geographical advantages, and economic factors.
-
-### Overview
-This choropleth map visualizes the share of electricity produced from renewable sources across the world in 2023 using a choropleth map. The data is sourced from **Ember** and the **Energy Institute - Statistical Review of World Energy (2024)**.
-
-The visualization presents how much of each country's electricity is generated by renewables, including hydropower, solar, wind, biomass, waste, geothermal, wave, and tidal sources.
-
-### Directory Structure
-```
-📁 share-electricity-renewables
-├── share-electricity-renewables.csv         # Dataset containing electricity production data by country
-├── share-electricity-renewables.py          # Python script for creating the choropleth map
-├── share-electricity-renewables.html        # Exported interactive HTML choropleth map
-├── share-electricity-renewables.metadata.json # Metadata file with detailed descriptions
-└── share-electricity-renewables.png         # Static PNG of the map visualization
-```
-
-### Map Description
-- **Title:** Share of Electricity Production from Renewables (2023)
-- **Coverage:** Global, with data for individual countries.
-- **Visualization Type:** Choropleth map showing the percentage of electricity produced from renewable sources.
-
-![share-electricity-renewables/share-electricity-renewables.png](https://github.com/cbilinski101/Project-3/blob/main/share-electricity-renewables/share-electricity-renewables.png?raw=true)
-
-### How to Run
-1. Install the required libraries:
-   ```bash
-   pip install pandas plotly
-   ```
-2. Update the script with the local file path for the CSV:
-   ```python
-   file_path_renewables = "./share-electricity-renewables.csv"
-   ```
-3. Run the script:
-   ```bash
-   python share-electricity-renewables.py
-   ```
-4. Open `share-electricity-renewables.html` in your browser to view the interactive map.
+- **Python 3**
+  - [Requests](https://pypi.org/project/requests/) for downloading CSV files.
+  - [psycopg2](https://pypi.org/project/psycopg2/) for PostgreSQL interactions.
+- **PostgreSQL**
+  - Primary data storage solution.
+- **Flask**
+  - Provides RESTful API endpoints.
+- **HTML/CSS**
+  - Basic frontend for presenting and navigating to visualizations.
+- **Mermaid**
+  - For creating diagrams within the README.
 
 ---
 
-## **Dependencies**
-The following Python packages and modules are required to run the scripts in this repository:
+## Installation Instructions
 
-1. **pandas** – for reading and manipulating `.csv` files  
-2. **plotly** – for creating interactive visualizations (`.html` exports of area charts, bar charts, and choropleth maps)  
-3. **json** (built-in) – for reading and handling `.json` metadata files  
-4. **os** (built-in) – for handling file paths if needed  
-5. **sys** (built-in) – for command-line interactions (if applicable)  
+1. **Clone the repository**
+    ```bash
+    git clone https://github.com/your-username/energy-visualizations.git
+    cd energy-visualizations
+    ```
+2. **Create and activate a virtual environment (recommended)**
+    ```bash
+    # On macOS/Linux
+    python3 -m venv venv
+    source venv/bin/activate
 
-**Performance Notes**: When working with large datasets, consider using efficient file loading methods and optimizing rendering settings in Plotly (e.g., disabling animations or using lower granularity).
+    # On Windows
+    python -m venv venv
+    venv\Scripts\activate
+    ```
+3. **Install the required Python packages**
+    ```bash
+    pip install -r requirements.txt
+    ```
+    Ensure your `requirements.txt` includes packages such as `requests`, `psycopg2`, and `Flask`.
 
-**File Formats and Dependencies**:
-- **CSV Files** – Read using `pandas.read_csv()`  
-- **HTML Export** – Generated using `plotly` functions such as `plotly.Figure().write_html()`  
-
-### Additional Dependencies (if applicable):
-- **geopandas** and **shapely** – for enhanced choropleth map support  
-- **numpy** – for numerical operations (if used in preprocessing)
-
-### Python Version:
-- Ensure Python `>= 3.8` is installed 
-
----
-
-## **Deployment Method**
-The visualizations can be deployed using **GitHub Pages** for easy access and sharing.
-
-1. Navigate to the repository's deployment settings: [GitHub Pages Deployment](https://github.com/cbilinski101/Project-3/deployments/github-pages).
-2. Ensure the `index.html` file in the main directory is set as the entry point for the project.
-3. Access the deployed project via the GitHub Pages URL provided in the repository.
-
-**Device Compatibility Notes**: The visualizations have been tested for rendering on desktop and mobile devices. While interactive elements work well on desktops, some mobile devices may experience slower rendering or difficulty with interactive hover features. For best performance, use a modern browser (e.g., Chrome, Firefox) and ensure your browser is up to date.
+4. **Set up PostgreSQL**
+    - Install PostgreSQL if you don’t have it already.
+    - Create a new database (e.g., `energy`).
+    - Ensure your PostgreSQL server is running and accessible.
+5. **Configure database credentials**
+    - Update the database connection details in both `ingestion.py` and `app.py` if needed.
 
 ---
 
-## **Main Directory Structure**
+## Directory Structure
+
 ```
-.
-├── LICENSE                      # Licensing information
-├── README.md                    # Documentation for the entire project
-└── index.html                    # Entry point linking to all visualizations
+📁 Energy Insights
+├── ingestion.py          # Handles downloading, parsing, and inserting energy datasets into a PostgreSQL database
+├── app.py                # REST API for querying energy data from PostgreSQL and returning JSON responses
+├── visualization.py      # Generates interactive HTML visualizations of energy datasets using Plotly
+├── requirements.txt      # Lists Python dependencies required for the project
+└── index.html            # Frontend landing page
+├── visualizations/
+│   └── global_energy_substitution.html
+│   └── per_capita_energy.html
+│   └── share_of_renewables.html
 ```
 
 ---
 
-## **Data Sources and Notes**
-- **Global Primary Energy Consumption:** Data sourced from *Energy Institute - Statistical Review of World Energy (2024)* and *Vaclav Smil (2017)*.
-- **Per Capita Energy Consumption:** The data covers 1965 to 2023 and includes detailed population-adjusted figures.
-- **Electricity from Renewables:** Data from *Ember (2024)* and *Energy Institute - Statistical Review of World Energy (2024)*.
+## System Architecture
 
-### Citation
-Please use the following citation when referencing this project:
-```
-Energy Institute - Statistical Review of World Energy (2024); Population data from various sources (2023).
+Understanding the overall system architecture is crucial for navigating and extending the project. Below is a visual representation of how different components interact within the project.
+
+### System Architecture Diagram
+
+```mermaid
+%% Modern Themed Flowchart
+flowchart LR
+style A fill:#FFDDC1,stroke:#FF7F50,stroke-width:2px,rx:10px,ry:10px
+style B fill:#C1E1FF,stroke:#1E90FF,stroke-width:2px,rx:10px,ry:10px
+style C fill:#FFD1DC,stroke:#FF69B4,stroke-width:2px,rx:10px,ry:10px
+style D fill:#D5FFD1,stroke:#32CD32,stroke-width:2px,rx:10px,ry:10px
+style E fill:#F0E68C,stroke:#DAA520,stroke-width:2px,rx:10px,ry:10px
+
+A["<b>CSV Data Sources</b><br><i>Our World in Data</i>"] -->|<b>Download CSV</b>| B[<b>Ingestion Script</b><br><i>ingestion.py</i>]
+B -->|<b>Insert Into</b>| C[<b>PostgreSQL Database</b>]
+C -->|<b>psycopg2 Library</b>| D[<b>Flask API</b><br><i>app.py</i>]
+D -->|<b>GET Requests</b>| E[<b>Frontend</b><br><i>index.html</i>]
+E -->|<b>Optionally Requests Data</b>| D
+D -->|<b>Queries Data</b>| C
 ```
 
+---
+
+## Usage
+This section guides you through running the ingestion script, starting the Flask API, and accessing the frontend interface.
+### Running the Ingestion Script
+1. **Verify your PostgreSQL credentials** in `ingestion.py` (and ensure your database is running).
+2. **Execute the script**:
+    ```bash
+    python ingestion.py
+    ```
+    - This script will **create the required tables** if they don’t exist.
+    - It will **download the CSV data** from three specified URLs.
+    - It will **insert** the data into your local PostgreSQL database.
+
+### Running the Flask API
+
+1. **Ensure your PostgreSQL database is populated** (via the ingestion step).
+2. **Start the Flask application**:
+    ```bash
+    python app.py
+    ```
+    - By default, the Flask server runs at [http://127.0.0.1:5000](http://127.0.0.1:5000).
+
+### Viewing the Frontend Pages
+
+1. **Open `index.html`** in your web browser.
+2. **Explore the homepage**, which includes:
+    - A hero section explaining the project’s purpose.
+    - Cards linking to specific visualizations (e.g., `global_energy_substitution.html`).
+
+> **Note**: If you have not yet created the individual visualization pages referenced (e.g., `visualizations/global_energy_substitution.html`), those links will lead to placeholders or 404 pages. Add your own HTML/JS files to implement data visualizations.
+
+---
+
+## API Interaction
+
+Understanding how the frontend interacts with the API can help in debugging and extending functionalities.
+
+### API Request/Response Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Flask
+    participant DB as PostgreSQL DB
+    Client->>Flask: GET /api/global_energy_substitution?year=2020
+    activate Flask
+    Flask->>DB: SELECT * FROM global_energy_substitution WHERE year=2020
+    activate DB
+    DB-->>Flask: Query Results (JSON)
+    deactivate DB
+    Flask-->>Client: 200 OK (JSON data)
+    deactivate Flask
+```
+
+---
+
+## Frontend Navigation
+
+The frontend's navigation structure ensures users can easily access different visualizations.
+
+### Frontend Navigation/Interaction Diagram
+
+```mermaid
+flowchart LR
+style HomePage fill:#FFDDC1,stroke:#FF7F50,stroke-width:2px,rx:10px,ry:10px
+style GlobalSub fill:#C1E1FF,stroke:#1E90FF,stroke-width:2px,rx:10px,ry:10px
+style PerCapita fill:#FFD1DC,stroke:#FF69B4,stroke-width:2px,rx:10px,ry:10px
+style Renewables fill:#D5FFD1,stroke:#32CD32,stroke-width:2px,rx:10px,ry:10px
+style FlaskAPI fill:#F0E68C,stroke:#DAA520,stroke-width:2px,rx:10px,ry:10px
+
+HomePage["<b>Home Page</b><br><i>index.html</i>"] -->|<b>Click</b> Global Energy Substitution| GlobalSub["<b>Global Energy Substitution</b><br><i>global_energy_substitution.html</i>"]
+
+HomePage -->|<b>Click</b> Per Capita Energy| PerCapita["<b>Per Capita Energy</b><br><i>per_capita_energy.html</i>"]
+
+HomePage -->|<b>Click</b> Share of Renewables| Renewables["<b>Share of Renewables</b><br><i>share_of_renewables.html</i>"]
+
+GlobalSub -->|<b>Fetch Data</b><br>/api/global_energy_substitution?year=2020| FlaskAPI["<b>Flask API</b><br><i>(Backend)</i>"]
+
+PerCapita -->|<b>Fetch Data</b><br>/api/per_capita_energy?year=2020&entity=USA| FlaskAPI
+
+Renewables -->|<b>Fetch Data</b><br>/api/share_renewables?year=2020| FlaskAPI
+```
+
+---
+
+## Database Structure
+
+This project creates and uses three main tables in PostgreSQL. Below is an overview of each table and its columns:
+
+### 1. `global_energy_substitution`
+
+| Column                     | Type                | Description                                      |
+|----------------------------|---------------------|--------------------------------------------------|
+| **id**                     | SERIAL PRIMARY KEY  | Auto-incrementing primary key                    |
+| **entity**                 | TEXT                | Name of the country or entity                    |
+| **code**                   | TEXT                | Country code or identifier (if available)        |
+| **year**                   | INT                 | Year of the data                                 |
+| **other_renewables**       | FLOAT               | Substituted energy from other renewables (TWh)    |
+| **biofuels**               | FLOAT               | Biofuels-based energy (TWh)                      |
+| **solar**                  | FLOAT               | Solar-based energy (TWh)                          |
+| **wind**                   | FLOAT               | Wind-based energy (TWh)                           |
+| **hydropower**             | FLOAT               | Hydropower-based energy (TWh)                     |
+| **nuclear**                | FLOAT               | Nuclear-based energy (TWh)                        |
+| **gas**                    | FLOAT               | Natural gas-based energy (TWh)                    |
+| **oil**                    | FLOAT               | Oil-based energy (TWh)                            |
+| **coal**                   | FLOAT               | Coal-based energy (TWh)                           |
+| **traditional_biomass**    | FLOAT               | Traditional biomass energy (TWh)                  |
+
+### 2. `share_electricity_renewables`
+
+| Column                      | Type                | Description                                           |
+|-----------------------------|---------------------|-------------------------------------------------------|
+| **id**                      | SERIAL PRIMARY KEY  | Auto-incrementing primary key                         |
+| **entity**                  | TEXT                | Name of the country or entity                         |
+| **code**                    | TEXT                | Country code or identifier (if available)             |
+| **year**                    | INT                 | Year of the data                                      |
+| **renewables_pct_electricity** | FLOAT           | Renewables as a percentage of electricity             |
+
+### 3. `per_capita_energy`
+
+| Column                       | Type                | Description                                           |
+|------------------------------|---------------------|-------------------------------------------------------|
+| **id**                       | SERIAL PRIMARY KEY  | Auto-incrementing primary key                         |
+| **entity**                   | TEXT                | Name of the country or entity                         |
+| **code**                     | TEXT                | Country code or identifier (if available)             |
+| **year**                     | INT                 | Year of the data                                      |
+| **coal_per_capita**          | FLOAT               | Coal consumption per capita (kWh)                     |
+| **oil_per_capita**           | FLOAT               | Oil consumption per capita (kWh)                      |
+| **gas_per_capita**           | FLOAT               | Gas consumption per capita (kWh)                      |
+| **nuclear_per_capita**       | FLOAT               | Nuclear consumption per capita (kWh, equivalent)      |
+| **hydro_per_capita**         | FLOAT               | Hydropower consumption per capita (kWh, equivalent)   |
+| **wind_per_capita**          | FLOAT               | Wind consumption per capita (kWh, equivalent)         |
+| **solar_per_capita**         | FLOAT               | Solar consumption per capita (kWh, equivalent)        |
+| **other_renewables_per_capita** | FLOAT           | Other renewables per capita (kWh, equivalent)         |
+
+These tables are automatically created (if they do not exist) when you run the ingestion script (`ingestion.py`). Each table is then populated by downloading CSV data from [Our World in Data](https://ourworldindata.org/) and inserting it into the respective columns.
+
+---
+
+## Configuration
+
+Several key configurations are located in the following files:
+
+1. **`ingestion.py`**
+    - **URLs** for the CSV datasets:
+    ```python
+    URL_GLOBAL_ENERGY_SUBSTITUTION  =  "..."
+    URL_SHARE_OF_RENEWABLES         =  "..."
+    URL_PER_CAPITA_ENERGY           =  "..."
+    ```
+    - **Database credentials** (defaults shown):
+    ```python
+    db_host = "localhost"
+    db_name = "energy"
+    db_user = "postgres"
+    db_password = "postgres"
+    db_port = 5432
+    ```
+
+2. **`app.py`**
+    - Contains the **Flask API** logic:
+    ```python
+    DB_CONFIG = {
+        'host': 'localhost',
+        'dbname': 'energy',
+        'user': 'postgres',
+        'password': 'postgres',
+        'port': 5432
+    }
+    ```
+
+3. **`index.html`**
+    - A simple frontend landing page linking to additional visualization pages.
+
+If you need to use different database credentials or URLs, adjust these configurations accordingly.
+
+---
+
+## Additional Information
+
+### Acknowledgments
+
+- Data provided by [Our World in Data](https://ourworldindata.org/).
+- Inspiration and guidance from various open-source projects and communities.
+
+### Known Issues
+
+- **CSV Changes**: Altered column names or data formats in the CSV files require updates to both the ingestion script and the table schema.
+- **Performance**: Large CSV files may take longer to insert into the database, potentially causing delays during ingestion.
+
+### Future Enhancements
+
+- **Advanced Visualizations**: Integration with JavaScript chart libraries (e.g., [Chart.js](https://www.chartjs.org/), [D3.js](https://d3js.org/)) for more dynamic and interactive visualizations.
+- **Containerization**: Dockerize the application for easier deployment and environment consistency.
+- **Automation**: Implement caching or background tasks for scheduled data ingestion to keep the database updated automatically.
+- **Enhanced Frontend**: Develop individual visualization pages with detailed insights and user interactivity.
+
+Feel free to submit pull requests or open issues if you have suggestions or find any bugs!
+
+---
+
+## License
+
+[MIT License](LICENSE)
+
+---
+
+## Contact
+
+For any questions or suggestions, please open an issue on the [GitHub repository](https://github.com/your-username/energy-visualizations).
+
+---
