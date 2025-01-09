@@ -72,7 +72,7 @@ This section provides an analysis of trends in primary energy consumption. The v
 - **Visualization Type:** Stacked area chart.  
 - **Data Source:** Energy Institute and Smil (2017).  
 
-![global-energy-substitution/global-energy-substitution.png](https://github.com/cbilinski101/Project-3/blob/main/global-energy-substitution/global-energy-substitution.png?raw=true)  
+![global-energy-substitution/global-energy-substitution.png](https://github.com/cbilinski101/Project-3/blob/stg/views/Global%20Primary%20Energy%20Consumption.png?raw=true)  
 
 ---
 
@@ -86,7 +86,7 @@ This visualization analyzes the variation in per capita energy use across countr
 - **Visualization Type:** Stacked bar chart.  
 - **Data Source:** Energy Institute - Statistical Review of World Energy (2024).  
 
-![per-capita-energy/per-capita-energy.png](https://github.com/cbilinski101/Project-3/blob/main/per-capita-energy/per-capita-energy.png?raw=true)  
+![per-capita-energy/per-capita-energy.png](https://github.com/cbilinski101/Project-3/blob/stg/views/Per%20Capita%20Primary%20Energy%20Consumption.png?raw=true)  
 
 ---
 
@@ -100,7 +100,7 @@ This visualization shows how renewable energy shares vary globally, influenced b
 - **Visualization Type:** Choropleth map.  
 - **Data Source:** Ember and Energy Institute - Statistical Review of World Energy (2024).  
 
-![share-electricity-renewables/share-electricity-renewables.png](https://github.com/cbilinski101/Project-3/blob/main/share-electricity-renewables/share-electricity-renewables.png?raw=true)  
+![share-electricity-renewables/share-electricity-renewables.png](https://github.com/cbilinski101/Project-3/blob/stg/views/Share%20of%20Electricity%20Production.png?raw=true)  
 
 ---
 
