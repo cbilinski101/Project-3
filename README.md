@@ -171,19 +171,23 @@ Understanding the overall system architecture is crucial for navigating and exte
 
 ```mermaid
 %% Modern Themed Flowchart
-flowchart LR
+flowchart TB
 style A fill:#FFDDC1,stroke:#FF7F50,stroke-width:2px,rx:10px,ry:10px
 style B fill:#C1E1FF,stroke:#1E90FF,stroke-width:2px,rx:10px,ry:10px
 style C fill:#FFD1DC,stroke:#FF69B4,stroke-width:2px,rx:10px,ry:10px
 style D fill:#D5FFD1,stroke:#32CD32,stroke-width:2px,rx:10px,ry:10px
 style E fill:#F0E68C,stroke:#DAA520,stroke-width:2px,rx:10px,ry:10px
+style F fill:#FFFACD,stroke:#FFA500,stroke-width:2px,rx:10px,ry:10px
 
 A["<b>CSV Data Sources</b><br><i>Our World in Data</i>"] -->|<b>Download CSV</b>| B[<b>Ingestion Script</b><br><i>ingestion.py</i>]
 B -->|<b>Insert Into</b>| C[<b>PostgreSQL Database</b>]
-C -->|<b>psycopg2 Library</b>| D[<b>Flask API</b><br><i>app.py</i>]
-D -->|<b>GET Requests</b>| E[<b>Frontend</b><br><i>index.html</i>]
-E -->|<b>Optionally Requests Data</b>| D
-D -->|<b>Queries Data</b>| C
+C -->|<b>Return Data</b>| D[<b>Flask API</b><br><i>app.py</i>]
+D -->|<b>Provides Data</b>| E[<b>Frontend</b><br><i>visualization.py</i>]
+E -->|<b>Generate HTML</b>| F[<b>HTML Code</b><br><i>global_energy_substitution.html</i>,<br><i>per_capita_energy.html</i>,<br><i>share_of_renewables.html</i>]
+
+%% Looping Processes
+E --> |<b>Optional User Request</b>| D
+D --> |<b>Queries Database</b>| C
 ```
 
 ---
