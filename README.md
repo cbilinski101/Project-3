@@ -32,7 +32,8 @@ This repository contains three interactive data visualization projects related t
 - [Additional Information](#additional-information)  
   - [Acknowledgments](#acknowledgments)  
   - [Known Issues](#known-issues)  
-  - [Future Enhancements](#future-enhancements)  
+  - [Future Enhancements](#future-enhancements)
+- [Ethical Considerations](#ethical-considerations)  
 - [License](#license)  
 - [Contact](#contact)  
 
