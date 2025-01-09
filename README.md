@@ -86,7 +86,7 @@ This visualization analyzes the variation in per capita energy use across countr
 - **Visualization Type:** Stacked bar chart.  
 - **Data Source:** Energy Institute - Statistical Review of World Energy (2024).  
 
-![per-capita-energy/per-capita-energy.png](https://github.com/cbilinski101/Project-3/blob/main/per-capita-energy/per-capita-energy.png?raw=true)  
+![per-capita-energy/per-capita-energy.png](https://github.com/cbilinski101/Project-3/blob/stg/views/Per%20Capita%20Primary%20Energy%20Consumption.png?raw=true)  
 
 ---
 
