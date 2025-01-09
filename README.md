@@ -72,7 +72,7 @@ This section provides an analysis of trends in primary energy consumption. The v
 - **Visualization Type:** Stacked area chart.  
 - **Data Source:** Energy Institute and Smil (2017).  
 
-![global-energy-substitution/global-energy-substitution.png](https://github.com/cbilinski101/Project-3/blob/main/global-energy-substitution/global-energy-substitution.png?raw=true)  
+![global-energy-substitution/global-energy-substitution.png](https://github.com/cbilinski101/Project-3/blob/stg/views/Global%20Primary%20Energy%20Consumption.png?raw=true)  
 
 ---
 
