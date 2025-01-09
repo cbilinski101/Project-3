@@ -100,7 +100,7 @@ This visualization shows how renewable energy shares vary globally, influenced b
 - **Visualization Type:** Choropleth map.  
 - **Data Source:** Ember and Energy Institute - Statistical Review of World Energy (2024).  
 
-![share-electricity-renewables/share-electricity-renewables.png](https://github.com/cbilinski101/Project-3/blob/main/share-electricity-renewables/share-electricity-renewables.png?raw=true)  
+![share-electricity-renewables/share-electricity-renewables.png](https://github.com/cbilinski101/Project-3/blob/stg/views/Share%20of%20Electricity%20Production.png?raw=true)  
 
 ---
 
