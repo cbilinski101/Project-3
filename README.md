@@ -392,7 +392,11 @@ Feel free to submit pull requests or open issues if you have suggestions or find
 
 ---
 
+## **Ethical Considerations**
+This project prioritizes ethical data usage and transparency. All datasets used are sourced from reputable institutions and publicly available data repositories to ensure accuracy and avoid unauthorized use. Additionally, visualizations are designed to present data without misleading representations, focusing on clarity and avoiding distortions that could misinform viewers. Efforts have been made to respect privacy and avoid inclusion of personally identifiable information (PII) by utilizing only aggregated data. In terms of accessibility, interactive visualizations include labels and hover text to improve interpretability for a wide audience.
 ## License
+
+---
 
 [MIT License](LICENSE)
 
