@@ -22,7 +22,8 @@ This repository contains three interactive data visualization projects related t
 - [Usage](#usage)  
   - [Running the Ingestion Script](#running-the-ingestion-script)  
   - [Running the Flask API](#running-the-flask-api)  
-  - [Viewing the Frontend Pages](#viewing-the-frontend-pages)  
+  - [Viewing the Frontend Pages](#viewing-the-frontend-pages)
+- [Deployment](#deployment)
 - [API Interaction](#api-interaction)  
   - [API Request/Response Sequence Diagram](#api-requestresponse-sequence-diagram)  
 - [Frontend Navigation](#frontend-navigation)  
@@ -163,6 +164,33 @@ This visualization shows how renewable energy shares vary globally, influenced b
 │   └── per_capita_energy.html
 │   └── share_of_renewables.html
 ```
+
+---
+
+## Deployment  
+
+The project is deployed using GitHub Pages and can be accessed at [Project-3 Deployment](https://cbilinski101.github.io/Project-3/).
+
+To deploy your own version on GitHub Pages, follow these steps:
+
+1. **Ensure the Repository is Public**:
+   - Navigate to your repository's settings.
+   - Under the "Pages" section, ensure that the source branch (usually `main` or `gh-pages`) is selected.
+
+2. **Setup GitHub Pages**:
+   - In the Pages settings, choose the branch (e.g., `main`) and the root directory (or `/docs` if your files are placed there).
+   - Click **Save**.
+
+3. **Verify Deployment**:
+   - GitHub Pages will provide a deployment URL (e.g., `https://username.github.io/repository-name/`).
+   - Access the provided URL to view your deployed project.
+
+4. **Optional - Use a `docs/` Directory for Pages**:
+   - Create a `docs` folder in your repository.
+   - Move `index.html` and visualization pages into `docs/`.
+   - Update any paths in your code to reflect the new structure.
+
+By following these steps, you can host your visualizations directly from GitHub Pages, making them accessible to anyone with the link.
 
 ---
 
