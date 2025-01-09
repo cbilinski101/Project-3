@@ -1,110 +1,148 @@
+# Energy Data Visualization Project  
 
-# Energy Data Visualization Project
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue) ![License](https://img.shields.io/badge/License-MIT-green) ![GitHub Pages](https://img.shields.io/badge/Deployed-GitHub%20Pages-brightgreen)  
 
-![Python](https://img.shields.io/badge/Python-3.8%2B-blue) ![License](https://img.shields.io/badge/License-MIT-green) ![GitHub Pages](https://img.shields.io/badge/Deployed-GitHub%20Pages-brightgreen)
-
-This repository contains three interactive data visualization projects related to global energy consumption trends. Each visualization provides insights into different aspects of energy usage globally.
-
----
-
-## Table of Contents
-- [Project Description](#project-description)
-  - [Purpose](#purpose)
-  - [Goals](#goals)
-  - [Key Features](#key-features)
-- [Technologies Used](#technologies-used)
-- [Installation Instructions](#installation-instructions)
-- [Directory Structure](#directory-structure)
-- [System Architecture](#system-architecture)
-- [Usage](#usage)
-  - [Running the Ingestion Script](#running-the-ingestion-script)
-  - [Running the Flask API](#running-the-flask-api)
-  - [Viewing the Frontend Pages](#viewing-the-frontend-pages)
-- [API Interaction](#api-interaction)
-  - [API Request/Response Sequence Diagram](#api-requestresponse-sequence-diagram)
-- [Frontend Navigation](#frontend-navigation)
-  - [Frontend Navigation/Interaction Diagram](#frontend-navigationinteraction-diagram)
-- [Database Structure](#database-structure)
-- [Configuration](#configuration)
-- [Additional Information](#additional-information)
-  - [Acknowledgments](#acknowledgments)
-  - [Known Issues](#known-issues)
-  - [Future Enhancements](#future-enhancements)
-- [License](#license)
-- [Contact](#contact)
+This repository contains three interactive data visualization projects related to global energy consumption trends. Each visualization provides insights into different aspects of energy usage globally.  
 
 ---
 
-## Project Description
-
-### Purpose
-
-This project demonstrates how to:
-1. Programmatically download datasets (in CSV format) from the web.
-2. Ingest and store them in a PostgreSQL database.
-3. Expose the stored data through RESTful API endpoints built with Flask.
-4. Visualize the data using an HTML frontend for easy access.
-
-### Goals
-
-- Provide an automated and reproducible process to keep data up to date.
-- Offer clear and concise API endpoints for querying data.
-- Present an intuitive HTML front page to guide users to various visualizations.
-
-### Key Features
-
-- Automated ingestion of three distinct CSV datasets related to global energy consumption.
-- PostgreSQL database setup and data population.
-- Flask API endpoints for retrieving data.
-- Basic HTML/CSS layout for data visualization and navigation.
-
----
-
-## Technologies Used
-
-- **Python 3**
-  - [Requests](https://pypi.org/project/requests/) for downloading CSV files.
-  - [psycopg2](https://pypi.org/project/psycopg2/) for PostgreSQL interactions.
-- **PostgreSQL**
-  - Primary data storage solution.
-- **Flask**
-  - Provides RESTful API endpoints.
-- **HTML/CSS**
-  - Basic frontend for presenting and navigating to visualizations.
-- **Mermaid**
-  - For creating diagrams within the README.
+## Table of Contents  
+- [Project Description](#project-description)  
+  - [Purpose](#purpose)  
+  - [Goals](#goals)  
+  - [Key Features](#key-features)  
+- [Visualizations Overview](#visualizations-overview)  
+  - [1. Global Primary Energy Consumption by Source](#1-global-primary-energy-consumption-by-source)  
+  - [2. Per Capita Primary Energy Consumption by Source](#2-per-capita-primary-energy-consumption-by-source)  
+  - [3. Share of Electricity Production from Renewables](#3-share-of-electricity-production-from-renewables)  
+- [Technologies Used](#technologies-used)  
+- [Installation Instructions](#installation-instructions)  
+- [Directory Structure](#directory-structure)  
+- [System Architecture](#system-architecture)  
+- [Usage](#usage)  
+  - [Running the Ingestion Script](#running-the-ingestion-script)  
+  - [Running the Flask API](#running-the-flask-api)  
+  - [Viewing the Frontend Pages](#viewing-the-frontend-pages)  
+- [API Interaction](#api-interaction)  
+  - [API Request/Response Sequence Diagram](#api-requestresponse-sequence-diagram)  
+- [Frontend Navigation](#frontend-navigation)  
+  - [Frontend Navigation/Interaction Diagram](#frontend-navigationinteraction-diagram)  
+- [Database Structure](#database-structure)  
+- [Configuration](#configuration)  
+- [Additional Information](#additional-information)  
+  - [Acknowledgments](#acknowledgments)  
+  - [Known Issues](#known-issues)  
+  - [Future Enhancements](#future-enhancements)  
+- [License](#license)  
+- [Contact](#contact)  
 
 ---
 
-## Installation Instructions
+## Project Description  
 
-1. **Clone the repository**
-    ```bash
-    git clone https://github.com/your-username/energy-visualizations.git
-    cd energy-visualizations
-    ```
-2. **Create and activate a virtual environment (recommended)**
-    ```bash
-    # On macOS/Linux
-    python3 -m venv venv
-    source venv/bin/activate
+### Purpose  
+This project demonstrates how to:  
+1. Programmatically download datasets (in CSV format) from the web.  
+2. Ingest and store them in a PostgreSQL database.  
+3. Expose the stored data through RESTful API endpoints built with Flask.  
+4. Visualize the data using an HTML frontend for easy access.  
 
-    # On Windows
-    python -m venv venv
-    venv\Scripts\activate
-    ```
-3. **Install the required Python packages**
-    ```bash
-    pip install -r requirements.txt
-    ```
-    Ensure your `requirements.txt` includes packages such as `requests`, `psycopg2`, and `Flask`.
+### Goals  
+- Provide an automated and reproducible process to keep data up to date.  
+- Offer clear and concise API endpoints for querying data.  
+- Present an intuitive HTML front page to guide users to various visualizations.  
 
-4. **Set up PostgreSQL**
-    - Install PostgreSQL if you don’t have it already.
-    - Create a new database (e.g., `energy`).
-    - Ensure your PostgreSQL server is running and accessible.
-5. **Configure database credentials**
-    - Update the database connection details in both `ingestion.py` and `app.py` if needed.
+### Key Features  
+- Automated ingestion of three distinct CSV datasets related to global energy consumption.  
+- PostgreSQL database setup and data population.  
+- Flask API endpoints for retrieving data.  
+- Basic HTML/CSS layout for data visualization and navigation.  
+
+---
+
+## Visualizations Overview  
+
+### 1. Global Primary Energy Consumption by Source  
+
+This section provides an analysis of trends in primary energy consumption. The visualization presents growth in renewable energy, significant increases in solar and wind energy since the early 2000s, and variations in fossil fuel usage over time.  
+
+#### Overview  
+- **Title:** Global Primary Energy Consumption by Source (1800–2023)  
+- **Energy Sources:** Coal, oil, gas, renewables, nuclear, and biomass.  
+- **Visualization Type:** Stacked area chart.  
+- **Data Source:** Energy Institute and Smil (2017).  
+
+![global-energy-substitution/global-energy-substitution.png](https://github.com/cbilinski101/Project-3/blob/main/global-energy-substitution/global-energy-substitution.png?raw=true)  
+
+---
+
+### 2. Per Capita Primary Energy Consumption by Source  
+
+This visualization analyzes the variation in per capita energy use across countries. It highlights differences between industrialized nations and developing economies.  
+
+#### Overview  
+- **Title:** Per Capita Primary Energy Consumption by Source (2023)  
+- **Energy Sources:** Coal, oil, gas, nuclear, hydro, wind, solar, and other renewables.  
+- **Visualization Type:** Stacked bar chart.  
+- **Data Source:** Energy Institute - Statistical Review of World Energy (2024).  
+
+![per-capita-energy/per-capita-energy.png](https://github.com/cbilinski101/Project-3/blob/main/per-capita-energy/per-capita-energy.png?raw=true)  
+
+---
+
+### 3. Share of Electricity Production from Renewables  
+
+This visualization shows how renewable energy shares vary globally, influenced by policies, geography, and economic factors.  
+
+#### Overview  
+- **Title:** Share of Electricity Production from Renewables (2023)  
+- **Coverage:** Global, with data for individual countries.  
+- **Visualization Type:** Choropleth map.  
+- **Data Source:** Ember and Energy Institute - Statistical Review of World Energy (2024).  
+
+![share-electricity-renewables/share-electricity-renewables.png](https://github.com/cbilinski101/Project-3/blob/main/share-electricity-renewables/share-electricity-renewables.png?raw=true)  
+
+---
+
+## Technologies Used  
+
+- **Python 3**: [Requests](https://pypi.org/project/requests/), [psycopg2](https://pypi.org/project/psycopg2/).  
+- **PostgreSQL**: Primary data storage.  
+- **Flask**: RESTful API.  
+- **HTML/CSS**: Frontend for visualizations.  
+- **Mermaid**: Diagram creation.  
+
+---
+
+## Installation Instructions  
+
+1. **Clone the repository**:  
+   ```bash  
+   git clone https://github.com/your-username/energy-visualizations.git  
+   cd energy-visualizations  
+   ```  
+2. **Set up Python environment**:  
+   ```bash  
+   python3 -m venv venv  
+   source venv/bin/activate  # or venv\Scripts\activate on Windows  
+   pip install -r requirements.txt  
+   ```  
+3. **Set up PostgreSQL**:  
+   - Install PostgreSQL.  
+   - Create a database (e.g., `energy`).  
+   - Update credentials in `ingestion.py` and `app.py`.  
+
+4. **Run the ingestion script**:  
+   ```bash  
+   python ingestion.py  
+   ```  
+
+5. **Start the Flask API**:  
+   ```bash  
+   python app.py  
+   ```  
+
+6. **View Frontend Pages**: Open `index.html` in your browser.  
 
 ---
 
