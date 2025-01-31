@@ -1,5 +1,6 @@
 # Energy Data Visualization Project  
 
+[![Website](https://img.shields.io/website?down_message=Offline&label=Live%20Demo&up_message=Online&url=https%3A%2F%2Fcbilinski101.github.io%2FProject-3%2F)](https://cbilinski101.github.io/Project-3/)
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue) ![License](https://img.shields.io/badge/License-MIT-green) ![GitHub Pages](https://img.shields.io/badge/Deployed-GitHub%20Pages-brightgreen)  
 
 This repository contains three interactive data visualization projects related to global energy consumption trends. Each visualization provides insights into different aspects of energy usage globally.  
